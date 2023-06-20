@@ -1,0 +1,10 @@
+.nav-item{
+    background-color: purple;
+    color: white;
+    padding: 1rem 5rem;
+
+    &__logo{
+        letter-spacing: 1px;
+        font-size: 20px;
+    }
+}

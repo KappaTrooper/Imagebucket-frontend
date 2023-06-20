@@ -3,7 +3,7 @@ import "./Uploadbtn.scss";
 import { AiFillPlusCircle } from "react-icons/ai";
 import axios from "axios";
 
-export default function Uploadbtn() {
+export default function Uploadbtn({setUpdateUI }) {
   const handleChange = (event) => {
     event.preventDefault();
 
@@ -13,6 +13,7 @@ export default function Uploadbtn() {
     axios.post("http://localhost:9001/api/save", formData)
         .then((res) => {
             console.log(res.data);
+            setUpdateUI(res.data._id);
             })
             .catch((err) => {
             console.log(err = "error bitch");

@@ -2,6 +2,8 @@ import React from "react";
 import "./Uploadbtn.scss";
 import { AiFillPlusCircle } from "react-icons/ai";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
 
 export default function Uploadbtn({setUpdateUI }) {
   const handleChange = (event) => {
@@ -22,16 +24,11 @@ export default function Uploadbtn({setUpdateUI }) {
   };
 
   return (
-    <label className="btn-item" htmlFor="file_picker">
+    <Link to="/upload">
+    <div className="btn-item">
       <AiFillPlusCircle />
-      <input
-        hidden
-        type="file"
-        name="file_picker"
-        id="file_picker"
-        onChange={(event) => handleChange(event)  }
-      />
-    </label>
+    </div>
+  </Link>
 
   );
 }

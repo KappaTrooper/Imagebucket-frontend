@@ -1,0 +1,97 @@
+// Login.scss
+
+$primary-color: #3e74fa;
+$secondary-color: #f4f7fd;
+$background-color: #f9f9f9;
+
+.login {
+  display: flex;
+  
+  align-items: flex-start;
+  
+  min-height: 100vh;
+  background-color: $background-color;
+
+  .image-div {
+    display: none;
+
+    @media (min-width: 768px) {
+      display: block;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  .login-div {
+    margin-top: 25rem;
+    margin-left: 20rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    .title {
+      font-size: 2.5rem;
+      color: $primary-color;
+      margin-bottom: 2rem;
+    }
+
+    .description {
+      font-size: 1.2rem;
+      color: #777;
+      margin-bottom: 2rem;
+    }
+
+    .account-message {
+      font-size: 0.9rem;
+      color: #777;
+      margin-bottom: 2rem;
+    }
+
+    .form {
+      width: 300px;
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1.5rem;
+
+        .input {
+          padding: 0.75rem;
+          font-size: 1rem;
+          border: none;
+          border-radius: 4px;
+          background-color: #f4f4f4;
+
+          &:focus {
+            outline: none;
+            background-color: #e8e8e8;
+          }
+        }
+      }
+
+      .login-button {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        font-weight: bold;
+        background-color: $primary-color;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: darken($primary-color, 10%);
+        }
+      }
+    }
+  }
+}

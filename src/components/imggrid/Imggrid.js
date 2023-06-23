@@ -7,11 +7,14 @@ export default function Imggrid({ photos }) {
   const navigate = useNavigate();
 
   const openModal = (photoId) => {
+    console.log('Clicked photoId:', photoId);
     const selectedPhoto = photos.find((photo) => photo._id === photoId);
+    console.log('Selected photo:', selectedPhoto);
+  
     setSelectedImage(selectedPhoto);
-    navigate(`/image/${photoId}`); // Navigate to the URL with image ID
+    navigate(`/images/${photoId}`); // Navigate to the URL with image ID
   };
-
+  
   const closeModal = () => {
     setSelectedImage(null);
     navigate('/'); // Navigate back to the home page
@@ -19,7 +22,7 @@ export default function Imggrid({ photos }) {
 
   return (
     <>
-      <h1 className="photo-text">Witness the Galaxy</h1>
+      <h1 className="photo-text"></h1>
       <div className="grid">
         {photos.map(({ _id, photo, title, description, takenBy }) => (
           <div key={_id} className="grid__item">

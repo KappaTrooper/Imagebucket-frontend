@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../navbar/Navbar';
+import './UploadForm.scss';
 
 export default function UploadForm() {
   const navigate = useNavigate();
@@ -10,6 +13,11 @@ export default function UploadForm() {
   const [takenBy, setTakenBy] = useState('');
 
   const handleSubmit = () => {
+    if (!file || !title || !description || !takenBy) {
+      alert('Please fill in all the fields');
+      return;
+    }
+
     const formData = new FormData();
     formData.append('photo', file);
     formData.append('title', title);
@@ -17,69 +25,61 @@ export default function UploadForm() {
     formData.append('takenBy', takenBy);
 
     axios
-      .post('http://localhost:9001/api/save', formData)
+      .post('http://localhost:9001/api/upload', formData)
       .then((res) => {
         console.log(res.data);
-        navigate('/');
+        navigate('/images'); // Navigate to the "/images" page
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+  const handleDrop = (acceptedFiles) => {
+    setFile(acceptedFiles[0]);
   };
 
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value);
-  };
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    accept: 'image/*',
+    onDrop: handleDrop,
+  });
 
-  const handleDescriptionChange = (event) => {
-    setDescription(event.target.value);
-  };
-
-  const handleTakenByChange = (event) => {
-    setTakenBy(event.target.value);
-  };
+  const dropzoneClassName = `dropzone ${isDragActive ? 'active' : ''} ${file ? 'hasFiles' : ''}`;
 
   return (
-    <div>
-      <h1>Upload Image</h1>
-      <form>
-        <label htmlFor="file">Choose an image:</label>
-        <input type="file" id="file" name="file" onChange={handleFileChange} />
+    <>
+      <Navbar />
+      <div>
+        <h1>Upload Image</h1>
+        <form className="upload-item">
+          <div {...getRootProps({ className: dropzoneClassName })} className={dropzoneClassName}>
+            <input {...getInputProps()} />
+            {isDragActive ? (
+              <p>Drop your images here...</p>
+            ) : (
+              <p>{file ? 'Uploading... Enter the details below' : 'Drop your images here...'}</p>
+            )}
+          </div>
 
-        <label htmlFor="title">Title:</label>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          value={title}
-          onChange={handleTitleChange}
-        />
+          <label htmlFor="title">Title:</label>
+          <input type="text" id="title" name="title" value={title} onChange={(e) => setTitle(e.target.value)} />
 
-        <label htmlFor="description">Description:</label>
-        <textarea
-          id="description"
-          name="description"
-          value={description}
-          onChange={handleDescriptionChange}
-        ></textarea>
+          <label htmlFor="description">Description:</label>
+          <textarea
+            id="description"
+            name="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          ></textarea>
 
-        <label htmlFor="takenBy">Taken By:</label>
-        <input
-          type="text"
-          id="takenBy"
-          name="takenBy"
-          value={takenBy}
-          onChange={handleTakenByChange}
-        />
+          <label htmlFor="takenBy">Taken By:</label>
+          <input type="text" id="takenBy" name="takenBy" value={takenBy} onChange={(e) => setTakenBy(e.target.value)} />
 
-        <button type="button" onClick={handleSubmit}>
-          Upload
-        </button>
-      </form>
-    </div>
+          <button type="button" onClick={handleSubmit} disabled={!file || !title || !description || !takenBy}>
+            Upload
+          </button>
+        </form>
+      </div>
+    </>
   );
 }

@@ -1,0 +1,22 @@
+.upload-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.dropzone {
+    border: 5px solid black;
+    padding: 10rem;
+    text-align: center;
+  
+    &.active {
+      border-color: red;
+    }
+  
+    &.hasFiles {
+      border-color: green;
+    }
+  }
+  

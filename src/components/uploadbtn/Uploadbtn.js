@@ -1,6 +1,12 @@
 import React from "react";
 import "./Uploadbtn.scss";
-import { AiFillPlusCircle } from "react-icons/ai";
+
+// import { AiFillFileAdd } from "react-icons/ai";
+
+import {  CgImport } from "react-icons/cg";
+
+
+
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -24,11 +30,13 @@ export default function Uploadbtn({setUpdateUI }) {
   };
 
   return (
-    <Link to="/upload">
+    <>
+    <Link to="/images/upload">
     <div className="btn-item">
-      <AiFillPlusCircle />
+      <CgImport />
     </div>
   </Link>
+  </>
 
   );
 }

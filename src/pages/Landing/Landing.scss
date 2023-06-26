@@ -1,7 +1,5 @@
-// LandingPage.scss
-
-$primary-color: #3e74fa;
-$secondary-color: #f4f7fd;
+$primary-color: #1f222c;
+$secondary-color: #FFFFFF;
 
 .landing-page {
   display: flex;
@@ -9,31 +7,67 @@ $secondary-color: #f4f7fd;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: $secondary-color;
+background-image: url(../../assets/bk_pineapple.jpg);
+
+  @media (max-width: 425px) {
+
+    min-height: 100vh;
+    min-width: 40vh;
+    }
+    
+  
+
+
+
+&__logo{
+  background-color: rgba(255, 255, 255, 0.5);
+
+  @media (max-width: 425px) {
+    width: 100%;
+  }
+}
+
 
   .header {
     text-align: center;
 
     .title {
-      font-size: 3rem;
+      font-size: 3.5rem;
       color: $primary-color;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: bold;
+      text-shadow: 3px 3px 4px rgba(0, 0, 0, 0.2);
     }
 
     .subtitle {
-      font-size: 1.5rem;
-      color: #777;
+      font-size: 1.8rem;
+      color: darken($primary-color, 30%);
+      font-weight: 500;
     }
   }
 
   .content {
     text-align: center;
-    margin-top: 2rem;
+    margin-top: 3rem;
+    // background-color: $primary-color;
+    background: rgba(black, 0.5);
+
+    
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+
+    @media (max-width: 425px) {
+      border-radius: 0;
+    }
 
     .description {
-      font-size: 1.2rem;
-      color: #444;
+      font-size: 1.3rem;
+      color: $secondary-color;
       max-width: 400px;
-      margin-bottom: 2rem;
+      margin-bottom: 3rem;
+      line-height: 1.5;
     }
 
     .buttons {
@@ -42,19 +76,20 @@ $secondary-color: #f4f7fd;
       align-items: center;
 
       .cta-button {
-        padding: 0.75rem 2rem;
-        font-size: 1rem;
+        padding: 1rem 2.5rem;
+        font-size: 1.2rem;
         font-weight: bold;
-        background-color: $primary-color;
-        color: white;
+        background: $secondary-color;
+        color: #594DC8;
         border: none;
-        border-radius: 4px;
+        border-radius: 50px;
+        box-shadow: 0px 10px 20px rgba($primary-color, 0.4);
         cursor: pointer;
-        transition: background-color 0.3s;
-        margin-bottom: 1rem;
+        transition: transform 0.3s;
+        margin-bottom: 2rem;
 
         &:hover {
-          background-color: darken($primary-color, 10%);
+          transform: scale(1.05);
         }
       }
 
@@ -63,18 +98,22 @@ $secondary-color: #f4f7fd;
         gap: 1rem;
 
         .auth-button {
-          padding: 0.5rem 1.5rem;
-          font-size: 0.9rem;
-          background-color: white;
-          color: $primary-color;
-          border: 1px solid $primary-color;
-          border-radius: 4px;
+          padding: 0.8rem 2rem;
+          font-size: 1rem;
+          // background-color: $secondary-color;
+          color: #594DC8;
+          border: 2px solid $primary-color;
+          border-radius: 50px;
+          box-shadow: 0px 10px 20px rgba($primary-color, 0.2);
           cursor: pointer;
-          transition: background-color 0.3s;
+          transition: transform 0.3s;
+
+
 
           &:hover {
-            background-color: $primary-color;
-            color: white;
+            transform: scale(1.05);
+            background-color: #594DC8 ;
+            color: $secondary-color;
           }
         }
       }
@@ -82,8 +121,18 @@ $secondary-color: #f4f7fd;
   }
 
   .footer {
-    margin-top: 3rem;
-    font-size: 0.9rem;
-    color: #777;
+    margin-top: 4rem;
+    font-size: 1rem;
+    color: darken($secondary-color, 40%);
+    font-weight: 500;
   }
+
+
+
+
+
+
+
 }
+
+

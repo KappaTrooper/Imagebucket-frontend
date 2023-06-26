@@ -7,27 +7,23 @@ $background-color: #f9f9f9;
 .login {
   display: flex;
   
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
   
   min-height: 100vh;
-  background-color: $background-color;
+  background-image: url(../../assets/bk_login.jpg);
 
-  .image-div {
-    display: none;
 
-    @media (min-width: 768px) {
-      display: block;
-    }
-
-    img {
-      max-width: 100%;
-      height: auto;
-    }
+  @media (max-width: 425px) {
+    min-height: 120vh;
+    min-width: 35vh;
   }
 
+
+
+
   .login-div {
-    margin-top: 25rem;
-    margin-left: 20rem;
+ 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -36,6 +32,12 @@ $background-color: #f9f9f9;
     padding: 2rem;
     border-radius: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+
+    @media (max-width: 425px) {
+      border-radius: 0;
+      width: 100%;
+    }
 
     .title {
       font-size: 2.5rem;

@@ -1,44 +1,70 @@
-// Login.js
-
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, Navigate } from 'react-router-dom';
+import axios from 'axios';
 
 import './Signup.scss';
 
 const Signup = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [registered, setRegistered] = useState(false);
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+
+    try {
+      await axios.post('http://localhost:9001/auth/signup', {
+        username,
+        password,
+      });
+
+      setRegistered(true);
+    } catch (error) {
+      setError('Failed to register user');
+    }
+  };
+
+  if (registered) {
+    // Redirect to the login page if the user is registered successfully
+    return <Navigate to="/login" />;
+  }
+
   return (
-    <div className="login">
-      <div className="image-div">
-        <img src="https://images.unsplash.com/photo-1607462109225-6b64ae2dd3cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHBob3RvZ3JhcGh5fGVufDB8fDB8fHww&w=1000&q=80" alt="Image" />
-      </div>
-      <div className="login-div">
-        <h2 className="title">Sign up</h2>
-        <p className="description">
-          Welcome to ImageBucket 
-        </p>
-        <p className="account-message">
-          Create an account to start posting pictures
-        </p>
-        <form className="form">
-          <div className="form-group">
-            <input type="text" id="username" className="input" placeholder="Username" />
+    <div className="signup-container">
+      <div className="signup-content">
+        <h2 className="signup-title">Sign up</h2>
+        <p className="signup-description">Welcome to ImageBucket</p>
+        {error && <p className="signup-error">{error}</p>}
+        <form className="signup-form" onSubmit={handleSignup}>
+          <div className="signup-form-group">
+            <input
+              type="text"
+              id="username"
+              className="signup-input"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
           </div>
-          <div className="form-group">
-            <input type="text" id="email" className="input" placeholder="Email" />
+          <div className="signup-form-group">
+            <input
+              type="password"
+              id="password"
+              className="signup-input"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
           </div>
-          <div className="form-group">
-            <input type="password" id="password" className="input" placeholder="Password" />
-          </div>
-          <Link to="/images">
-
-          <button className="login-button">Sign up</button>
-          </Link>
-
+          <button type="submit" className="signup-button">
+            Sign up
+          </button>
           <Link to="/login">
-
-<button className="login-button login-button-login">Already have an account?</button>
-</Link>
-          
+            <button className="signup-login-button">Already have an account?</button>
+          </Link>
         </form>
       </div>
     </div>

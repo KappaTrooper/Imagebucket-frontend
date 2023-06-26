@@ -1,5 +1,6 @@
 // LandingPage.js
 import React from 'react';
+import Logo from '../../assets/Imagebucket.png';
 import { Link } from 'react-router-dom';
 
 import './Landing.scss';
@@ -8,7 +9,7 @@ const Landing = () => {
   return (
     <div className="landing-page">
       <header className="header">
-        <h1 className="title">Imagebucket</h1>
+        <img src={Logo} className='landing-page__logo'/>
         <p className="subtitle">Store and share your images</p>
       </header>
       <main className="content">
@@ -17,7 +18,7 @@ const Landing = () => {
           It's fast, secure, and easy to use.
         </p>
         <div className="buttons">
-          <button className="cta-button">Get Started</button>
+          {/* <button className="cta-button">Get Started</button> */}
           <div className="auth-buttons">
           <Link to="/login">
             <button className="auth-button">Login</button>

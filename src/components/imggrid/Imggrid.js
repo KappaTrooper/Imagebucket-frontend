@@ -1,57 +1,61 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './Imggrid.scss';
 
 export default function Imggrid({ photos }) {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [usernames, setUsernames] = useState({});
   const navigate = useNavigate();
 
-  const openModal = (photoId) => {
+  const handleClick = (photoId) => {
     console.log('Clicked photoId:', photoId);
-    const selectedPhoto = photos.find((photo) => photo._id === photoId);
-    console.log('Selected photo:', selectedPhoto);
-  
-    setSelectedImage(selectedPhoto);
     navigate(`/images/${photoId}`); // Navigate to the URL with image ID
   };
-  
-  const closeModal = () => {
-    setSelectedImage(null);
-    navigate('/'); // Navigate back to the home page
-  };
+
+  useEffect(() => {
+    // Fetch usernames based on user IDs
+    const fetchUsernames = async () => {
+      try {
+        const userIds = photos.map((photo) => photo.takenBy);
+        const response = await axios.get('http://localhost:9001/get', {
+          params: { userIds: userIds.join(',') },
+        });
+        console.log(response);
+        const { data } = response;
+        const usernames = {};
+
+        // Iterate through the data array and create the usernames object
+        data.forEach((photo) => {
+          usernames[photo.takenBy._id] = photo.takenBy.username;
+        });
+
+        setUsernames(usernames);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    if (photos.length > 0) {
+      fetchUsernames();
+    }
+  }, [photos]);
 
   return (
     <>
-      <h1 className="photo-text"></h1>
       <div className="grid">
         {photos.map(({ _id, photo, title, description, takenBy }) => (
-          <div key={_id} className="grid__item">
-            <img
-              src={`http://localhost:9001/uploads/${photo}`}
-              alt="grid_image"
-              onClick={() => openModal(_id)}
-            />
+          <div key={_id} className="grid__item" onClick={() => handleClick(_id)}>
             <div className="image-details">
-              <h2>{title}</h2>
-              <p>{description}</p>
-              <p>Taken by: {takenBy}</p>
+              <img className="image-details__img" src={`http://localhost:9001/uploads/${photo}`} alt="grid_image" />
+              <div className="image-details__overlay">
+                <h2 className="image-details__title">{title}</h2>
+                <p className="image-details__taken-by">Posted by: {takenBy}</p>
+                
+              </div>
             </div>
           </div>
         ))}
       </div>
-      {selectedImage && (
-        <div className="overlay" onClick={closeModal}>
-          <div className="modal">
-            <img
-              src={`http://localhost:9001/uploads/${selectedImage.photo}`}
-              alt="modal_image"
-            />
-            <h2>{selectedImage.title}</h2>
-            <p>{selectedImage.description}</p>
-            <p>Taken by: {selectedImage.takenBy}</p>
-          </div>
-        </div>
-      )}
     </>
   );
 }
